@@ -17,19 +17,20 @@ print("Красками было нарисовано".(DRAWINGS - FELT_TIP_DRAW
 
 // Задание #3
 $age = rand(-100, 100);
+const AGE_OF_MAJORITY = 18;
+const RETIREMENT_AGE = 65;
 echo '<br>';
-if($age >= 18 && $age <= 65) {
+if($age >= AGE_OF_MAJORITY && $age <= RETIREMENT_AGE) {
     print('Вам еще работать и работать');
-} elseif($age > 65) {
+} elseif($age > RETIREMENT_AGE) {
     print('Вам пора на пенсию');
-} elseif($age >= 1 && $age < 18) {
+} elseif($age >= 1 && $age < AGE_OF_MAJORITY) {
     print('Вам ещё рано работать');
 } else {
     print('Неизвестный возраст');
 }
 
 // Задание #4
-
 $day = rand(0, 10);
 echo '<br>';
 switch($day) {
@@ -49,7 +50,6 @@ switch($day) {
 }
 
 // Задание #5
-
 $bmw = [
     'model' => 'X5',
     'speed' => 120,
@@ -77,18 +77,14 @@ foreach ($cars as $key => $value) {
     echo '<br>';
     print("CAR $key");
     echo '<br>';
-    echo implode($value);
+    echo implode(" ", $value);
     echo '<br>';
 
 }
 
 // Задание #6
-// четное + четное = четное
-// нечетное + нечетное = четное
-
 echo '<br>';
 ?>
-
 
 <table>
     <?php for ($j=1; $j <= 10; $j++) : ?>
@@ -96,14 +92,6 @@ echo '<br>';
             <?php
             for ($i=1; $i <= 10; $i++) : ?>
                 <td><?php
-//                    if($i % 2 === 0 && $j % 2 === 0) {
-//                        print("(".($i * $j).")");
-//                    } elseif($i % 2 !== 0 && $j % 2 !== 0) {
-//                        print("[".($i * $j)."]");
-//                    } else {
-//                        print($i*$j);
-//                    }
-
                     if(($i + $j) % 2 === 0) {
                        if($i % 2 === 0) {
                            print("(".($i * $j).")");
