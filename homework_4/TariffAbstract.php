@@ -5,7 +5,6 @@ abstract class TariffAbstract implements iTariff {
     protected $pricePerKilometer;
     protected $distance;
     protected $minutes;
-    /** @var iService[] */
     protected $services = [];
 
 
@@ -20,7 +19,7 @@ abstract class TariffAbstract implements iTariff {
         $price = $this->distance * $this->pricePerKilometer + $this->minutes * $this->pricePerMinute;
         if ($this->services) {
             foreach ($this->services as $service) {
-                $service->apply($this, $price);
+                $price += $service->getPrice($this, $price);
             }
         }
         return $price;

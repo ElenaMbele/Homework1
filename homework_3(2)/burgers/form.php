@@ -20,35 +20,35 @@ try {
     $pdo->query($sql);
 
     $email = $_POST['email'];
-    $address = $_POST['street'] . $_POST['home'] . $_POST['home'] . $_POST['part'] . $_POST['appt'] . $_POST['floor'];
+    $address = $_POST['street'] .' '. $_POST['home'] .' '. $_POST['part'] .' '. $_POST['appt'] .' '. $_POST['floor'];
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $res = $pdo->query($sql);
-    $user = $res->fetch();
-    echo '<pre>';
-    print_r($user[orders_count]);
+    $user = $res->fetch(PDO::FETCH_ASSOC);
 
     if(!$user) {
         $sql = "INSERT INTO users(email) VALUES ('$email')";
         $pdo->query($sql);
-        print('новый пользователь создан');
     }
-        $userID = $user['id'];
-//    echo '<pre>';
-//        print_r($user);
-        $sql = "SELECT * FROM users WHERE email = '$email'";
-        $res = $pdo->query($sql)->fetch();
-        $orders_count = $res['orders_count'];
-        $orders_count ++;
-    print($orders_count);
-        $sql = "UPDATE users SET orders_count='$orders_count' WHERE email = '$email'";
-//        $res = $pdo->query($sql);
-        $pdo->query($sql);
-//        print("Спасибо, ваш заказ будет доставлен по адресу: $address
-//               Номер вашего заказа: $user[id]
-//               Это ваш $orders заказ!");
-//
 
-    echo '<br>';
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $res = $pdo->query($sql)->fetch();
+    $userID = $res['id'];
+    $orders_count = $res['orders_count'];
+    $orders_count ++;
+    $sql = "UPDATE users SET orders_count='$orders_count' WHERE email = '$email'";
+    $pdo->query($sql);
+    $sql = "INSERT INTO orders(user_id, address) VALUES ('$userID', '$address')";
+    $pdo->query($sql);
+
+    $sql = "SELECT * FROM orders WHERE user_id = '$userID'";
+    $order = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+
+    print("Спасибо, ваш заказ будет доставлен по адресу: $address
+        <br>
+               Номер вашего заказа: $order[id]
+        <br>       
+               Это ваш $orders_count заказ!");
+
 
 } catch(PDOException $e) {
     echo $e -> getMessage();

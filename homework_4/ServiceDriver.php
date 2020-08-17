@@ -1,8 +1,9 @@
 <?php
 class ServiceDriver implements iService {
-    private $servicePrice = 100;
-    public function apply(iTariff $tariff, &$price)
+    const SERVICE_PRICE = 100;
+    public function getPrice(iTariff $tariff, $price)
     {
-        $price = $price + $this->servicePrice;
+        return self::SERVICE_PRICE;
     }
 }
+

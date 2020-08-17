@@ -2,5 +2,5 @@
 
 interface iService
 {
-    public function apply(iTariff $tariff, &$price);
+    public function getPrice(iTariff $tariff, $price);
 }
